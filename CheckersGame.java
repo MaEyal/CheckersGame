@@ -32,7 +32,6 @@ public class CheckersGame {
 		System.out.println("Good luck");
 		
 		while(team1>0 && team2>0) {
-			System.out.println("team 1: "+team1+" team 2: "+team2);
 			PBoard(board);
 			System.out.println("Player "+nowPlay+", please enter the coordinates of the pawn you'd like to move:");
 			horFrom = scan.nextInt();
