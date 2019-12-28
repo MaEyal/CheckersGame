@@ -2,12 +2,9 @@ import java.util.Scanner;
 
 public class Pawn {
 	private boolean king = false;
-	private int[] location = new int[]{0,0};
 	private int team;
 	
-	public Pawn(int hor,int ver, int teamN){
-		location[0] = hor;
-		location[1] = ver;
+	public Pawn(int teamN){
 		team = teamN;
 	}
 	

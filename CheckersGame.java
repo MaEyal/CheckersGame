@@ -10,14 +10,14 @@ public class CheckersGame {
 		Scanner scan = new Scanner(System.in);
 		for (int i = 1; i<4; i++) {
 			for (k=j; k<9; k+=2) {
-				board[i][k] = new Pawn(i,k,2);
+				board[i][k] = new Pawn(2);
 			}
 			j=k%2+1;
 		}
 		j=1;
 		for (int i = 6; i<9; i++) {
 			for (k=j; k<9; k+=2) {
-				board[i][k] = new Pawn(i,k,1);
+				board[i][k] = new Pawn(1);
 			}
 			j=k%2+1;
 		}
