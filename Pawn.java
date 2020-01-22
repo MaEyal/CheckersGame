@@ -21,9 +21,20 @@ public class Pawn {
 		 * Including moving the pawn and deleting enemy pawns in the process.
 		 */
 		if (board[horFrom][verFrom].isKing()) {
+			boolean jump = false;
 			board[horTo][verTo] = board[horFrom][verFrom];
 			board[horFrom][verFrom] = null;
 			while (verFrom != verTo) {
+				if (board[horFrom][verFrom] != null) {
+					jump = true;
+					if (board[horFrom][verFrom].getTeam() == 1) {
+						CheckersGame.team1--;
+					}
+					else {
+						CheckersGame.team2--;
+				}
+				board[horFrom][verFrom]=null;
+				}
 				if (verFrom > verTo)
 					verFrom--;
 				else
@@ -32,22 +43,14 @@ public class Pawn {
 					horFrom--;
 				else
 					horFrom++;
-				if (board[horFrom][verFrom] != null) 
-					if (board[horFrom][verFrom].getTeam() == 1) {
-						CheckersGame.team1--;
-						
-					}
-					else {
-						CheckersGame.team2--;
-						CheckersGame.nowPlay = 2;
-				}
-				if (board[horTo][verTo].getTeam() == 1)
-					CheckersGame.nowPlay = 2;
-				else
-					CheckersGame.nowPlay = 1;
-			}
-			CheckKing(horTo,verTo,board);
-			SecondJump(horFrom,verFrom,horTo,verTo,curTeam,board);
+			
+		}
+			if (jump == true)
+				SecondJump(horFrom,verFrom,horTo,verTo,curTeam,board);
+			if (CheckersGame.nowPlay == 1)
+				CheckersGame.nowPlay = 2;
+			else
+				CheckersGame.nowPlay = 1;
 		}
 		else
 		{
@@ -108,30 +111,33 @@ public class Pawn {
 					verFrom = verTo;
 					horFrom = horTo;
 					System.out.println("please enter the coordinates of the destination:");
-					horTo = scan.nextInt();
+					horTo = (int)scan.next().charAt(0);
+					horTo = ((horTo-96>0) ? horTo-96 : horTo-64);
 					verTo = scan.nextInt();
-					boolean legal = LegalMoves.ContSecond(horFrom,verFrom,horTo,verTo,curTeam,board);
+					boolean legal = LegalMoves.LegalMove(horFrom,verFrom,horTo,verTo,curTeam,board, true);
 					if (legal) {
 							board[horTo][verTo] = board[horFrom][verFrom];
 							board[horFrom][verFrom] = null;
 							CheckKing(horTo,verTo,board);
-							if (horFrom > horTo)
-								horFrom--;
-							else
-								horFrom++;
-							if (verFrom > verTo)
-								verFrom--;
-							else
-								verFrom++;
-							board[horFrom][verFrom] = null;
-							if (curTeam == 1) {
-								CheckersGame.team2--;
+							while(horFrom != horTo) {
+								if (board[horFrom][verFrom] != null) {
+									board[horFrom][verFrom] = null;
+									if (curTeam == 1) {
+										CheckersGame.team2--;
+									}
+									else {
+										CheckersGame.team1--;
+									}
+								}
+								if (horFrom > horTo)
+									horFrom--;
+								else
+									horFrom++;
+								if (verFrom > verTo)
+									verFrom--;
+								else
+									verFrom++;
 							}
-							else {
-								CheckersGame.team1--;
-							}
-							horFrom = horTo;
-							verFrom = verTo;
 							contin = LegalMoves.Cont(horTo,verTo,board,curTeam);
 					}
 					else
