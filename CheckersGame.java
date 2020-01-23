@@ -7,35 +7,30 @@ public class CheckersGame {
 		Pawn[][] board = new Pawn[9][9];
 		int verTo, verFrom, horFrom, horTo;
 		Scanner scan = new Scanner(System.in);
-		/*
-		board[2][7]=new Pawn(1);
-		board[3][6] = new Pawn(2);
-		board[3][2]= new Pawn(2);
-		board[7][8] = new Pawn(2);
-		
-		*/
+
 		InitBoard(board);
 		
 		
 		System.out.println("Instructions:");
-		System.out.println("player 1 is the bottom player and player 2 is the top.");
-		System.out.println("To move your pawns, please enter the coordinates of the pawn you want to move horizontal and vertical. for ex: 6 3");
-		System.out.println("Then enter teh coordinates of the destination.");
+		System.out.println("White color pawns are on the bottom and the black colored pawns are on the top.");
+		System.out.println("To move your pawns, please enter the coordinates of the pawn you want to move horizontal and vertical. for ex: A2");
+		System.out.println("Then enter the coordinates of the destination.");
 		System.out.println("Remember: You can only take out your rival's pawns diagonally");
 		System.out.println("If your pawn arrives to the rivals side it becomes a 'king' and can move as many steps\n as you want in a diagonal direction");
 		System.out.println("Good luck");
 		
 		while(EndGame()) {
 			PBoard(board);
-			System.out.println("Player "+nowPlay+", please enter the coordinates of the pawn you'd like to move:");
-			
-			horFrom = (int)scan.next().charAt(0);
+			System.out.println(((nowPlay == 1) ? "White" : "Black")+" Player, please enter the coordinates of the pawn you'd like to move:");
+			String cord = scan.next();
+			horFrom = (int)cord.charAt(0);
 			horFrom  = ((horFrom-96>0) ? horFrom-96 : horFrom-64);
-			verFrom = scan.nextInt();
+			verFrom = (int)cord.charAt(1)-48;
 			System.out.println("please enter the coordinates of the destination:");
-			horTo = (int)scan.next().charAt(0);
+			cord = scan.next();
+			horTo = (int)cord.charAt(0);
 			horTo = ((horTo-96>0) ? horTo-96 : horTo-64);
-			verTo = scan.nextInt();
+			verTo = cord.charAt(1)-48;
 			boolean legal = LegalMoves.LegalMove(horFrom, verFrom, horTo, verTo, nowPlay, board, false);
 			if (legal) {
 				board[horFrom][verFrom].Move(horFrom, verFrom, horTo, verTo, nowPlay, board);
@@ -46,9 +41,9 @@ public class CheckersGame {
 					
 		}
 		if (team1 == 0)
-			System.out.println("Player 2 Wins!");
+			System.out.println("Black player Wins!");
 		else
-			System.out.println("Player 1 Wins!");
+			System.out.println("White player Wins!");
 		
 	}
 	

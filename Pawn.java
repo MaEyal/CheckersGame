@@ -111,9 +111,10 @@ public class Pawn {
 					verFrom = verTo;
 					horFrom = horTo;
 					System.out.println("please enter the coordinates of the destination:");
-					horTo = (int)scan.next().charAt(0);
+					String cord = scan.next();
+					horTo = (int)cord.charAt(0);
 					horTo = ((horTo-96>0) ? horTo-96 : horTo-64);
-					verTo = scan.nextInt();
+					verTo = cord.charAt(1)-48;
 					boolean legal = LegalMoves.LegalMove(horFrom,verFrom,horTo,verTo,curTeam,board, true);
 					if (legal) {
 							board[horTo][verTo] = board[horFrom][verFrom];
